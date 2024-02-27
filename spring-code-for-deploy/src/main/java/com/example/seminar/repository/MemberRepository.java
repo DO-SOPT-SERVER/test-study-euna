@@ -14,7 +14,7 @@ public class MemberRepository {
     @PersistenceContext
     private final EntityManager em;
 
-    void removeMemberEntity(Member member) {
+    public void remove(Member member) {
         em.remove(member);
     }
 }

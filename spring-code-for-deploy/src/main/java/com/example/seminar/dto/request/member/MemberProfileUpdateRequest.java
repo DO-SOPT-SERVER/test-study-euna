@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class MemberProfileUpdateRequest {
-    private int generation;
+    private short generation;
     private Part part;
 }
 

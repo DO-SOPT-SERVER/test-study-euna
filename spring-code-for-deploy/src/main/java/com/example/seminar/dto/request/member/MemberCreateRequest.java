@@ -2,12 +2,17 @@ package com.example.seminar.dto.request.member;
 
 
 import com.example.seminar.domain.SOPT;
-import lombok.Data;
 
-@Data
-public class MemberCreateRequest {
-    private String name;
-    private String nickname;
-    private int age;
-    private SOPT sopt;
+public record MemberCreateRequest(
+        String name,
+        String nickname,
+        int age,
+        SOPT sopt
+) {
+    public MemberCreateRequest(String name, String nickname, int age, SOPT sopt) {
+        this.name = name;
+        this.nickname = nickname;
+        this.age = age;
+        this.sopt = sopt;
+    }
 }

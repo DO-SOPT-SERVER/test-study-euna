@@ -4,7 +4,7 @@ package com.example.seminar.controller;
 import com.example.seminar.dto.request.post.PostCreateRequest;
 import com.example.seminar.dto.request.post.PostUpdateRequest;
 import com.example.seminar.dto.response.post.PostGetResponse;
-import com.example.seminar.service.PostService;
+import com.example.seminar.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,24 +20,18 @@ import java.util.List;
 
         private final PostService postService;
 
-        @GetMapping("{postId}")
-        public ResponseEntity<PostGetResponse> getPostById(@PathVariable Long postId) {
-           return ResponseEntity.ok(postService.getById(postId));
-        }
-
-        @GetMapping
-        public ResponseEntity<List<PostGetResponse>> getPosts(@RequestHeader(CUSTOM_AUTH_ID) Long memberId) {
-            return ResponseEntity.ok(postService.getPosts(memberId));
-        }
-
         @PostMapping
-        public ResponseEntity<Void> createPost(@RequestHeader(CUSTOM_AUTH_ID) Long memberId, @RequestBody PostCreateRequest request) {
+        public ResponseEntity<Void> createPost(
+                @RequestHeader(CUSTOM_AUTH_ID) Long memberId,
+                @RequestBody PostCreateRequest request) {
             URI location = URI.create("/api/post/" + postService.create(request, memberId));
             return ResponseEntity.created(location).build();
         }
 
         @PatchMapping("{postId}")
-        public ResponseEntity<Void> updatePost(@PathVariable Long postId, @RequestBody PostUpdateRequest request) {
+        public ResponseEntity<Void> updatePost(
+                @PathVariable Long postId,
+                @RequestBody PostUpdateRequest request) {
             postService.editContent(postId, request);
             return ResponseEntity.noContent().build();
         }

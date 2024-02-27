@@ -2,29 +2,31 @@ package com.example.seminar.domain;
 
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = PROTECTED)
 @Getter
-@Table(name = "post")
 public class Post extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @Column(name = "category_id")
-    private CategoryId categoryId;
 
     @Builder
     public Post(String title, String content, Member member) {
@@ -33,11 +35,8 @@ public class Post extends BaseTimeEntity {
         this.member = member;
     }
 
-    public void updateContent(String content) {
+    public void updateContent(final String content) {
         this.content = content;
     }
 
-    public void addCategory(CategoryId categoryId) {
-        this.categoryId = categoryId;
-    }
 }

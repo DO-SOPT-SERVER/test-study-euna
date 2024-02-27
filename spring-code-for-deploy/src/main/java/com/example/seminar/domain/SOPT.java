@@ -1,22 +1,28 @@
 package com.example.seminar.domain;
 
-
+import com.example.seminar.common.exception.MemberException;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Enumerated;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import static jakarta.persistence.EnumType.*;
+import static lombok.AccessLevel.PROTECTED;
 
 @Embeddable
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
 public class SOPT {
-    private int generation;
+
+    private static final short CURRENT_GENERATION = 34;
+
+    private short generation;
 
     @Enumerated(STRING)
     private Part part;
+
+    @Builder
+    private SOPT(Part part) {
+        this.generation = CURRENT_GENERATION;
+        this.part = part;
+    }
 }

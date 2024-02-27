@@ -1,8 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: local
-
+      on-profile: test
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:tcp://localhost/~/test
@@ -18,9 +17,3 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-
-    defer-datasource-initialization: true
-
-  sql:
-    init:
-      mode: always
