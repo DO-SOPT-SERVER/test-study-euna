@@ -4,10 +4,12 @@ package com.example.seminar.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-public class PartTest {
+@ActiveProfiles("test")
+class PartTest {
 
     @Test
     @DisplayName("개발 파트만을 조회할 수 있다.")
@@ -33,6 +35,4 @@ public class PartTest {
                                 Part.IOS
                         ));
     }
-
-
 }
