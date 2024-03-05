@@ -1,6 +1,7 @@
 package com.example.seminar.service.member;
 
 
+import com.example.seminar.common.exception.MemberException;
 import com.example.seminar.domain.Member;
 import com.example.seminar.repository.MemberJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,7 +21,7 @@ public class MemberRetriever {
     public Member findById(final long id) {
         return memberJpaRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("해당하는 회원이 없습니다."));
+                .orElseThrow(() -> new MemberException("해당하는 회원이 없습니다."));
     }
 
     public List<Member> findAll() {
