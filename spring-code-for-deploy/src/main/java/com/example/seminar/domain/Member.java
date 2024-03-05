@@ -18,9 +18,9 @@ import static jakarta.persistence.GenerationType.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseTimeEntity {
 
-    private final static int MAX_AGE = 100;
-    private final static int MAX_LENGTH = 12;
-    private final static short CURRENT_GENERATION = 34;
+    private static final int MAX_AGE = 100;
+    private static final int MAX_LENGTH = 12;
+    private static final short CURRENT_GENERATION = 34;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -42,6 +42,7 @@ public class Member extends BaseTimeEntity {
                    SOPT sopt) {
         validateAge(age);
         validateName(name);
+        validateNickname(nickname);
         this.name = name;
         this.nickname = nickname;
         this.age = age;
@@ -55,9 +56,15 @@ public class Member extends BaseTimeEntity {
     }
 
     private void validateName(final String name) {
-       if (name.length() > MAX_LENGTH) {
-            throw new MemberException("유저의 이름은 12자를 넘을 수 없습니다.");
+       if (!name.matches("^[가-힣]*$")) {
+            throw new MemberException("유저의 이름은 한글만 가능합니다.");
        }
+    }
+
+    private void validateNickname(final String nickname){
+        if (nickname.length() > MAX_LENGTH) {
+            throw new MemberException("유저의 닉네임은 12자를 넘을 수 없습니다.");
+        }
     }
 
     public void updateSOPT(SOPT sopt) {

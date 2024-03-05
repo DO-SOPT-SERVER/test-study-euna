@@ -22,4 +22,7 @@ public enum Part {
     public static List<Part> developParts() {
         return List.of(SERVER, WEB, ANDROID, IOS);
     }
+    public static List<Part> clientDevelopParts() {
+        return List.of(WEB, ANDROID, IOS);
+    }
 }

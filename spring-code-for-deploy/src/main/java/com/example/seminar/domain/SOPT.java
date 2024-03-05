@@ -1,6 +1,5 @@
 package com.example.seminar.domain;
 
-import com.example.seminar.common.exception.MemberException;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Enumerated;
 import lombok.*;
@@ -11,6 +10,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Embeddable
 @Getter
 @NoArgsConstructor(access = PROTECTED)
+// DDD의 Value Object
 public class SOPT {
 
     private static final short CURRENT_GENERATION = 34;
