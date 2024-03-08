@@ -50,7 +50,7 @@ public class MemberService {
     public void updateSOPT(final long memberId, final MemberProfileUpdateRequest request) {
         final Member member = memberRetriever.findById(memberId);
         final SOPT sopt = SOPT.builder()
-                .part(request.getPart())
+                .part(request.part())
                 .build();
         memberUpdater.updateSopt(member, sopt);
     }
