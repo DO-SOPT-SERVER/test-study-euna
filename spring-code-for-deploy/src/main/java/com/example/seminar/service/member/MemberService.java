@@ -34,6 +34,7 @@ public class MemberService {
                 .map(MemberGetResponse::of)
                 .collect(Collectors.toList());
     }
+
     @Transactional
     public String create(final MemberCreateRequest request) {
          final Member member =  memberRegister.register(Member.builder()
