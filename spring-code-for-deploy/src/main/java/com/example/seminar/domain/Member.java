@@ -28,6 +28,7 @@ public class Member extends BaseTimeEntity {
     private String name;
     private String nickname;
     private int age;
+    private boolean isDeleted = false;
 
     @Embedded
     private SOPT sopt;
@@ -47,6 +48,7 @@ public class Member extends BaseTimeEntity {
         this.nickname = nickname;
         this.age = age;
         this.sopt = sopt;
+        this.isDeleted = false;
     }
 
     private void validateAge(final int age) {
@@ -65,6 +67,10 @@ public class Member extends BaseTimeEntity {
         if (nickname.length() > MAX_LENGTH) {
             throw new MemberException("유저의 닉네임은 12자를 넘을 수 없습니다.");
         }
+    }
+
+    public void remove(){
+        this.isDeleted = true;
     }
 
     public void updateSOPT(SOPT sopt) {
