@@ -75,4 +75,21 @@ class MemberTest {
         //then
         Assertions.assertThat(member.isDeleted()).isEqualTo(isDeleted);
     }
+
+    @Test
+    @DisplayName("회원의 SOPT 정보를 수정할 수 있다")
+    void editMemberSoptInfo() {
+        // given
+        SOPT sopt = SOPTFixture.createSopt(Part.SERVER);
+        Member member  = MemberFixture.createMember("성은", "euna", 24, sopt);
+        SOPT newSopt = SOPTFixture.createSopt(Part.IOS);
+
+        // when
+        member.updateSOPT(newSopt);
+
+        //then
+        Assertions.assertThat(member.getSopt()).isEqualTo(newSopt);
+    }
+
+
 }
