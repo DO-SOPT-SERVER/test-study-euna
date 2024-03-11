@@ -2,7 +2,6 @@ package com.example.seminar.repository;
 
 import com.example.seminar.common.exception.MemberException;
 import com.example.seminar.domain.Member;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberJpaRepository extends JpaRepository<Member, Long> {
