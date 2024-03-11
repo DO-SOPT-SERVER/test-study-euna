@@ -28,13 +28,14 @@ class MemberControllerTest extends ControllerTestManager {
 
     @MockBean
     private MemberService memberservice;
+    private static final String MEMBER_API_ENDPOINT = "/api/member";
 
     @Test
     @DisplayName("신규 회원을 등록한다")
     void createMember() throws Exception {
         // given
         when(memberservice.create(any(MemberCreateRequest.class)))
-                .thenReturn("/api/member/1");
+                .thenReturn(MEMBER_API_ENDPOINT+"1");
 
         MemberCreateRequest request = new MemberCreateRequest
                 ("성은",
@@ -42,7 +43,7 @@ class MemberControllerTest extends ControllerTestManager {
                  24, SOPT.builder().part(Part.SERVER).build());
 
         // when, then
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/member")
+        mockMvc.perform(MockMvcRequestBuilders.post(MEMBER_API_ENDPOINT)
                 .content(objectMapper.writeValueAsString(request))
                 .contentType(json))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -63,7 +64,7 @@ class MemberControllerTest extends ControllerTestManager {
                 .thenReturn(memberResponses);
 
         // when, then
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/member"))
+        mockMvc.perform(MockMvcRequestBuilders.get(MEMBER_API_ENDPOINT))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$[0].name").value("성은"))
@@ -85,7 +86,7 @@ class MemberControllerTest extends ControllerTestManager {
         MemberProfileUpdateRequest request = new MemberProfileUpdateRequest((short) 6, Part.SERVER);
 
         // when, then
-        mockMvc.perform(MockMvcRequestBuilders.patch("/api/member/1")
+        mockMvc.perform(MockMvcRequestBuilders.patch(MEMBER_API_ENDPOINT+"/1")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(json))
                 .andDo(MockMvcResultHandlers.print())
@@ -96,7 +97,7 @@ class MemberControllerTest extends ControllerTestManager {
     @DisplayName("회원 정보를 삭제한다.")
     void deleteMember() throws Exception {
         // given // when // then
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/member/1"))
+        mockMvc.perform(MockMvcRequestBuilders.delete(MEMBER_API_ENDPOINT+"/1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
