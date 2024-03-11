@@ -28,6 +28,7 @@ public class Member extends BaseTimeEntity {
     private String name;
     private String nickname;
     private int age;
+
     private boolean isDeleted = false;
 
     @Embedded

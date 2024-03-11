@@ -12,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 class MemberTest {
 
+    private static final boolean isDeleted = true;
+
     @Test
     @DisplayName("회원의 나이는 0살 미만일 경우 예외가 발생한다")
     void invalidAgeUnderZero(){
@@ -58,5 +60,19 @@ class MemberTest {
                 }
         ).isInstanceOf(MemberException.class)
         .hasMessage("유저의 닉네임은 12자를 넘을 수 없습니다.");
+    }
+
+    @Test
+    @DisplayName("회원이 회원 탈퇴를 하면 isDeleted가 true가 된다")
+    void changeIsDeleted() {
+        // given
+        SOPT sopt = SOPTFixture.createSopt(Part.SERVER);
+        Member member = MemberFixture.createMember("성은", "euna", 24, sopt);
+
+        // when
+        member.remove();
+
+        //then
+        Assertions.assertThat(member.isDeleted()).isEqualTo(isDeleted);
     }
 }
