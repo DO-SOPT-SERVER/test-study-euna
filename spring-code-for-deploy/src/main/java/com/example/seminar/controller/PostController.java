@@ -3,14 +3,12 @@ package com.example.seminar.controller;
 
 import com.example.seminar.dto.request.post.PostCreateRequest;
 import com.example.seminar.dto.request.post.PostUpdateRequest;
-import com.example.seminar.dto.response.post.PostGetResponse;
 import com.example.seminar.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
     @RestController
     @RequestMapping("/api/posts")
@@ -24,7 +22,7 @@ import java.util.List;
         public ResponseEntity<Void> createPost(
                 @RequestHeader(CUSTOM_AUTH_ID) Long memberId,
                 @RequestBody PostCreateRequest request) {
-            URI location = URI.create("/api/post/" + postService.create(request, memberId));
+            URI location = URI.create("/api/posts/" + postService.create(request, memberId));
             return ResponseEntity.created(location).build();
         }
 
